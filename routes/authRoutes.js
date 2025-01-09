@@ -2,7 +2,6 @@ const express = require("express");
 const {
   login,
   register,
-  loginViaSocial,
 } = require("../controllers/authController.js");
 
 const authRouter = express.Router();
