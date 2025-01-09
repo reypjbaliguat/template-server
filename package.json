@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index"
+    "start": "nodemon index",
+    "prettier": "prettier --write */**/*.{js,jsx,json,ts,tsx,scss,css,md}"
   },
   "keywords": [],
   "author": "",
@@ -34,7 +35,7 @@
   "lint-staged": {
     "*.js": [
         "eslint --fix",
-        "prettier --write",
+        "prettier prettier --write */**/*.{js,jsx,json,ts,tsx,scss,css,md}",
         "git add"
     ]
   }
