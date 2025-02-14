@@ -6,6 +6,7 @@ const typeDefs = `
     id: ID!
     email: String!
     role: String!
+    token: String
   }
 
   type Product {
@@ -21,6 +22,7 @@ const typeDefs = `
   }
 
   type Query {
+    me: User
     products: [Product!]!
     orderHistory: [Order!]!
     users: [User!]!
@@ -30,6 +32,7 @@ const typeDefs = `
   type Mutation {
     signUp(email: String!, password: String!): String!
     login(email: String!, password: String!): String!
+    googleLogin(token: String!): User
     addProduct(name: String!, price: Float!): Product!
     addToCart(products: [String!]!, totalPrice: Float!): Order!
   }

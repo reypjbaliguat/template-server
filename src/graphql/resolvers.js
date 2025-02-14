@@ -5,6 +5,7 @@ import { userService } from '../services/userService.js';
 
 export const resolvers = {
     Query: {
+        me: userService.me,
         products: productService.getAllProducts,
         orderHistory: orderService.getOrderHistory,
         users: userService.getAllUsers,
@@ -13,6 +14,7 @@ export const resolvers = {
     Mutation: {
         signUp: authService.signUp,
         login: authService.login,
+        googleLogin: authService.googleLogin,
         addProduct: productService.addProduct,
         addToCart: orderService.addToCart,
     },
