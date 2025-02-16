@@ -17,13 +17,13 @@ export const authService = {
             data: { email, password: hashedPassword, role: 'USER' },
         });
         const token = jwt.sign(
-            { userId: user.id, role: user.role },
+            { userId: user.id, email: user.email },
             JWT_SECRET,
             {
                 expiresIn: '7d',
             },
         );
-        return { token, id: user.id, role: user.role, email: user.email };
+        return { token, id: user.id, email: user.email };
     },
 
     login: async (_, { email, password }) => {
@@ -31,9 +31,8 @@ export const authService = {
         if (!user || !(await bcrypt.compare(password, user.password))) {
             throw new Error('Invalid credentials');
         }
-        return jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, {
-            expiresIn: '7d',
-        });
+        const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET);
+        return { token, id: user.id, email: user.email };
     },
 
     googleLogin: async (_, { token }) => {
@@ -55,6 +54,10 @@ export const authService = {
             { id: user.id, email: user.email },
             JWT_SECRET,
         );
-        return { id: user.id, email: user.email, token: jwtToken };
+        return {
+            token: jwtToken,
+            id: user.id,
+            email: user.email,
+        };
     },
 };

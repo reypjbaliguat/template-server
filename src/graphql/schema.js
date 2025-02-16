@@ -31,8 +31,8 @@ const typeDefs = `
 
   type Mutation {
     signUp(email: String!, password: String!): User!
-    login(email: String!, password: String!): String!
-    googleLogin(token: String!): User
+    login(email: String!, password: String!): User!
+    googleLogin(token: String!): User!
     addProduct(name: String!, price: Float!): Product!
     addToCart(products: [String!]!, totalPrice: Float!): Order!
   }
