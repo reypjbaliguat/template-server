@@ -16,9 +16,14 @@ export const authService = {
         const user = await prisma.user.create({
             data: { email, password: hashedPassword, role: 'USER' },
         });
-        return jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, {
-            expiresIn: '7d',
-        });
+        const token = jwt.sign(
+            { userId: user.id, role: user.role },
+            JWT_SECRET,
+            {
+                expiresIn: '7d',
+            },
+        );
+        return { token, id: user.id, role: user.role, email: user.email };
     },
 
     login: async (_, { email, password }) => {
@@ -36,7 +41,6 @@ export const authService = {
             idToken: token,
             audience: GOOGLE_ID,
         });
-        console.log({ token, ticket });
         const payload = ticket.getPayload();
         const email = payload.email;
 
@@ -51,7 +55,6 @@ export const authService = {
             { id: user.id, email: user.email },
             JWT_SECRET,
         );
-        console.log({ id: user.id, email: user.email, token: jwtToken });
         return { id: user.id, email: user.email, token: jwtToken };
     },
 };
