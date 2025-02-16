@@ -11,7 +11,6 @@ export const userService = {
         return prisma.user.findMany();
     },
     getUser: async (_, { id }) => {
-        console.log({ id }, 'fired');
         return prisma.user.findFirst((user) => user.id === id);
     },
     addUser: async (_, { name, price }, { role }) => {
