@@ -16,7 +16,7 @@
     "dependencies": {
         "@graphql-tools/schema": "^10.0.16",
         "@graphql-yoga/node": "^3.9.1",
-        "@prisma/client": "^6.3.1",
+        "@prisma/client": "6.2.1",
         "bcryptjs": "^2.4.3",
         "dotenv": "^16.4.7",
         "google-auth-library": "^9.15.1",
