@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client';
-
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-export const templateService = {
+const templateService = {
     getAllTemplates: async (_, { userId }) => {
         return prisma.template.findMany({ where: { userId } });
     },
@@ -32,4 +31,8 @@ export const templateService = {
         const data = await prisma.template.delete({ where: { id } });
         return data;
     },
+};
+
+module.exports = {
+    templateService,
 };

@@ -1,8 +1,8 @@
-import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-import { OAuth2Client } from 'google-auth-library';
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const { OAuth2Client } = require('google-auth-library');
+const { PrismaClient } = require('@prisma/client');
 
 dotenv.config();
 const prisma = new PrismaClient();
@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const GOOGLE_ID = process.env.GOOGLE_ID;
 const googleClient = new OAuth2Client(GOOGLE_ID);
 
-export const authService = {
+const authService = {
     signUp: async (_, { email, password }) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await prisma.user.create({
@@ -60,4 +60,8 @@ export const authService = {
             email: user.email,
         };
     },
+};
+
+module.exports = {
+    authService,
 };

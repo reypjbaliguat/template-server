@@ -1,7 +1,7 @@
-import { createYoga } from 'graphql-yoga';
-import { createServer } from 'http';
-import { schema } from './graphql/schema.js';
-import { context } from './graphql/context.js';
+const { createYoga } = require('graphql-yoga');
+const { createServer } = require('http');
+const { schema } = require('./graphql/schema');
+const { context } = require('./graphql/context');
 
 const yoga = createYoga({
     schema,
@@ -16,6 +16,7 @@ const yoga = createYoga({
         };
     },
 });
+
 const server = createServer(yoga);
 
 const PORT = 4000;

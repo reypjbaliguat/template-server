@@ -1,7 +1,7 @@
-import { authService } from '../services/authService.js';
-import { templateService } from '../services/templateService.js';
+const { authService } = require('../services/authService');
+const { templateService } = require('../services/templateService');
 
-export const resolvers = {
+const resolvers = {
     Query: {
         getTemplates: templateService.getAllTemplates,
         getTemplate: templateService.getTemplate,
@@ -14,4 +14,8 @@ export const resolvers = {
         updateTemplate: templateService.updateTemplate,
         deleteTemplate: templateService.deleteTemplate,
     },
+};
+
+module.exports = {
+    resolvers,
 };

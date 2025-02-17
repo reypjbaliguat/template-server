@@ -1,5 +1,5 @@
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { resolvers } from './resolvers.js';
+const { makeExecutableSchema } = require('@graphql-tools/schema');
+const { resolvers } = require('./resolvers');
 
 const typeDefs = `
   type User {
@@ -34,4 +34,7 @@ const typeDefs = `
   }
 `;
 
-export const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+module.exports = {
+    schema,
+};

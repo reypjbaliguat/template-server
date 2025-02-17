@@ -1,10 +1,10 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-export const context = async ({ request }) => {
+const context = async ({ request }) => {
     const token = request.headers.authorization || '';
     try {
         const { userId, role } = jwt.verify(token, JWT_SECRET);
@@ -12,4 +12,8 @@ export const context = async ({ request }) => {
     } catch {
         return {};
     }
+};
+
+module.exports = {
+    context,
 };
