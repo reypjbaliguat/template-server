@@ -7,34 +7,30 @@ const typeDefs = `
     email: String!
     role: String!
     token: String
+    createdAt: String!
+    updatedAt: String!
   }
 
-  type Product {
+  type Template {
     id: ID!
-    name: String!
-    price: Float!
-  }
-
-  type Order {
-    id: ID!
-    products: [String!]!
-    totalPrice: Float!
+    title: String!
+    body: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Query {
-    me: User
-    products: [Product!]!
-    orderHistory: [Order!]!
-    users: [User!]!
-    user(id: ID!): User!
+    getTemplates(userId: ID!): [Template!]!
+    getTemplate(id: ID!): Template!
   }
 
   type Mutation {
     signUp(email: String!, password: String!): User!
     login(email: String!, password: String!): User!
     googleLogin(token: String!): User!
-    addProduct(name: String!, price: Float!): Product!
-    addToCart(products: [String!]!, totalPrice: Float!): Order!
+    addTemplate(title: String!, body: String!, userId: ID!): Template!
+    updateTemplate(title: String, body: String, id: ID!): Template!
+    deleteTemplate(id: ID!): Template!
   }
 `;
 
