@@ -4,11 +4,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const context = async ({ request }) => {
-    const token = request.headers.authorization || '';
+const context = async ({ req }) => {
+    const token = req.headers.authorization.split(' ')[1] || '';
     try {
-        const { userId, role } = jwt.verify(token, JWT_SECRET);
-        return { userId, role };
+        const { id } = jwt.verify(token, JWT_SECRET);
+        return { userId: id };
     } catch {
         return {};
     }

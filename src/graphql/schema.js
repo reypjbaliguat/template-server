@@ -20,7 +20,7 @@ const typeDefs = `
   }
 
   type Query {
-    getTemplates(userId: ID!): [Template!]!
+    getTemplates: [Template!]!
     getTemplate(id: ID!): Template!
   }
 
@@ -28,7 +28,7 @@ const typeDefs = `
     signUp(email: String!, password: String!): User!
     login(email: String!, password: String!): User!
     googleLogin(token: String!): User!
-    addTemplate(title: String!, body: String!, userId: ID!): Template!
+    addTemplate(title: String!, body: String!): Template!
     updateTemplate(title: String, body: String, id: ID!): Template!
     deleteTemplate(id: ID!): Template!
   }

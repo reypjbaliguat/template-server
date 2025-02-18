@@ -2,13 +2,13 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const templateService = {
-    getAllTemplates: async (_, { userId }) => {
+    getAllTemplates: async (_, args, { userId }) => {
         return prisma.template.findMany({ where: { userId } });
     },
     getTemplate: async (_, { id }) => {
         return prisma.template.findUnique({ where: { id } });
     },
-    addTemplate: async (_, { title, body, userId }, { role }) => {
+    addTemplate: async (_, { title, body }, { userId }) => {
         if (title.length > 32) {
             throw new Error('Title cannot exceed 32 characters');
         }
