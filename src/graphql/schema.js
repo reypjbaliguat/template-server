@@ -7,6 +7,10 @@ const typeDefs = `
     email: String!
     role: String!
     token: String
+    otpCode: String
+    otpExpires: String
+    isVerified: Boolean!
+    lastOtpRequest: String
     createdAt: String!
     updatedAt: String!
   }
@@ -25,9 +29,11 @@ const typeDefs = `
   }
 
   type Mutation {
-    signUp(email: String!, password: String!): User!
+    signUp(email: String!, password: String!): String!
     login(email: String!, password: String!): User!
     googleLogin(token: String!): User!
+    verifyOTP(email: String!, otpCode: String!): User
+    resendOTP(email: String!): String
     addTemplate(title: String!, body: String!): Template!
     updateTemplate(title: String, body: String, id: ID!): Template!
     deleteTemplate(id: ID!): Template!

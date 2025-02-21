@@ -10,6 +10,8 @@ const resolvers = {
         signUp: authService.signUp,
         login: authService.login,
         googleLogin: authService.googleLogin,
+        resendOTP: authService.resendOTP,
+        verifyOTP: authService.verifyOTP,
         addTemplate: templateService.addTemplate,
         updateTemplate: templateService.updateTemplate,
         deleteTemplate: templateService.deleteTemplate,
