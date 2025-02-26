@@ -1,14 +1,13 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const { OAuth2Client } = require('google-auth-library');
 const { PrismaClient } = require('@prisma/client');
 const { generateOTP, generateOTPHTMLemail } = require('../utils/otp');
 const nodemailer = require('nodemailer');
+const { jwtUtils } = require('../utils/jwt');
 
 dotenv.config();
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET;
 const GOOGLE_ID = process.env.GOOGLE_ID;
 const googleClient = new OAuth2Client(GOOGLE_ID);
 
@@ -28,6 +27,7 @@ const authService = {
         // Check if the last OTP request was made within the cool-down period (e.g., 1 minute)
         const coolDownPeriod = 1 * 60 * 1000; // 1 minute in milliseconds
         if (
+            existingUser &&
             existingUser.lastOtpRequest &&
             new Date() - existingUser.lastOtpRequest < coolDownPeriod
         ) {
@@ -85,7 +85,7 @@ const authService = {
             );
         }
 
-        const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET);
+        const token = jwtUtils.sign({ id: user.id, email: user.email });
 
         return { token, id: user.id, email: user.email };
     },
@@ -107,10 +107,7 @@ const authService = {
             });
         }
 
-        const jwtToken = jwt.sign(
-            { id: user.id, email: user.email },
-            JWT_SECRET,
-        );
+        const jwtToken = jwtUtils.sign({ id: user.id, email: user.email });
 
         return {
             token: jwtToken,
@@ -131,9 +128,7 @@ const authService = {
             data: { isVerified: true, otpCode: null, otpExpires: null },
         });
 
-        const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
-            expiresIn: '7d',
-        });
+        const token = jwtUtils.sign({ id: user.id, email: user.email });
 
         return { token, id: user.id, email: user.email };
     },

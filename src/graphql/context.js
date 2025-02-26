@@ -1,8 +1,7 @@
-const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const { jwtUtils } = require('../utils/jwt');
 
 dotenv.config();
-const JWT_SECRET = process.env.JWT_SECRET;
 
 const context = async ({ req }) => {
     const token =
@@ -11,7 +10,7 @@ const context = async ({ req }) => {
             req.headers.authorization.split(' ')[1]) ||
         '';
     try {
-        const { id } = jwt.verify(token, JWT_SECRET);
+        const { id } = jwtUtils.verify(token);
         return { userId: id };
     } catch {
         return {};
